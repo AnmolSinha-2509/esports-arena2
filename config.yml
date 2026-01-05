@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway
+  branch: main   # default branch
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "tournaments"
+    label: "Tournaments"
+    folder: "data/tournaments"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date & Time", name: "date", widget: "datetime"}
+      - {label: "Game", name: "game", widget: "select", options: ["Free Fire", "BGMI", "COD Mobile"]}
+      - {label: "Mode", name: "mode", widget: "select", options: ["Solo", "Duo", "Squad", "Custom"]}
+      - {label: "Entry Fee", name: "entry", widget: "string"}
+      - {label: "Prize", name: "prize", widget: "string"}
+      - {label: "Status", name: "status", widget: "select", options: ["Upcoming", "Live", "Completed"]}
+      - {label: "Banner Image", name: "image", widget: "image"}
