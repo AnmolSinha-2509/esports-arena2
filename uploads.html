@@ -1,0 +1,27 @@
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script>
+async function loadTournaments(){
+  const res = await fetch('/data/tournaments/');
+  const files = ["example-tournament.yml"]; // manually list all for now OR use build tool
+  const container = document.querySelector('.cards');
+  container.innerHTML = "";
+
+  for(let file of files){
+    const response = await fetch(`/data/tournaments/${file}`);
+    const text = await response.text();
+    const data = jsyaml.load(text);
+
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = `
+      <span class="status">${data.status}</span>
+      <h3>${data.title}</h3>
+      <p>${data.entry} | Prize ${data.prize}</p>
+      <img src="${data.image}" style="width:100%;border-radius:8px;margin-top:10px;">
+    `;
+    container.appendChild(card);
+  }
+}
+
+loadTournaments();
+</script>
