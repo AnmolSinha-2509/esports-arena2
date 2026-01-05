@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esports Arena | Full Website</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<style>
+:root{
+  --primary:#00e5ff;
+  --secondary:#ff00ff;
+  --dark:#0e0e0e;
+  --card:#141414;
+  --text:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  font-family:'Roboto',sans-serif;
+  background:var(--dark);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER */
+header{
+  background:#000;
+  padding:15px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{
+  font-family:'Bebas Neue';
+  color:var(--primary);
+  transition:.3s;
+}
+header h1:hover{
+  text-shadow:0 0 12px var(--primary);
+  transform:scale(1.05);
+}
+nav a{
+  margin-left:18px;
+  color:#ccc;
+  cursor:pointer;
+  text-decoration:none;
+  transition:.3s;
+}
+nav a:hover{
+  color:var(--primary);
+  text-shadow:0 0 10px var(--primary);
+}
+
+/* MAIN */
+main{flex:1;}
+section{
+  padding:60px 25px;
+  max-width:1100px;
+  margin:auto;
+  display:none;
+}
+section.active{display:block;}
+
+/* HERO */
+.hero{
+  min-height:70vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.hero h2{
+  font-size:48px;
+  font-family:'Bebas Neue';
+  transition:.3s;
+}
+.hero h2:hover{
+  color:var(--primary);
+  text-shadow:0 0 15px var(--primary);
+}
+.hero button{
+  margin-top:20px;
+  padding:12px 30px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
+  cursor:pointer;
+  transition:.3s;
+}
+.hero button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 25px rgba(0,229,255,.6);
+}
+
+/* BANNERS */
+.banners{
+  margin-top:50px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+.banner{
+  height:220px;
+  border-radius:15px;
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  transition:.4s;
+}
+.banner:hover{
+  transform:translateY(-8px) scale(1.03);
+  box-shadow:0 0 30px rgba(0,229,255,.4);
+}
+.banner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.6);
+}
+.banner h3{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  color:var(--primary);
+  z-index:2;
+}
+.live{
+  position:absolute;
+  top:15px;
+  right:15px;
+  background:red;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+  z-index:2;
+}
+
+/* CARDS */
+.profile-box,.card,.match{
+  background:var(--card);
+  padding:30px;
+  border-radius:18px;
+  text-align:center;
+  transition:.3s;
+}
+.profile-box:hover,
+.card:hover,
+.match:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 25px rgba(0,229,255,.25);
+}
+.profile-box,.card{
+  max-width:420px;
+  margin:auto;
+}
+
+/* FORM */
+.input{
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  background:#000;
+  border:1px solid #222;
+  color:#fff;
+  border-radius:8px;
+  transition:.3s;
+}
+.input:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 10px rgba(0,229,255,.5);
+  outline:none;
+}
+.btn{
+  width:100%;
+  margin-top:20px;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
+  cursor:pointer;
+  transition:.3s;
+}
+.btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px rgba(255,0,255,.5);
+}
+
+/* MATCHES */
+.match-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+  margin-top:40px;
+}
+.match h3{
+  color:var(--primary);
+  transition:.3s;
+}
+.match:hover h3{
+  text-shadow:0 0 10px var(--primary);
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  padding:18px;
+  text-align:center;
+  color:#777;
+  transition:.3s;
+}
+footer:hover{
+  color:var(--primary);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>ESPORTS ARENA</h1>
+  <nav>
+    <a onclick="openPage('home')">Home</a>
+    <a onclick="openPage('profile')">Profile</a>
+    <a onclick="openPage('register')">Register</a>
+    <a onclick="openPage('matches')">Matches</a>
+  </nav>
+</header>
+
+<main>
+
+<section id="home" class="active">
+  <div class="hero">
+    <h2 id="typing"></h2>
+    <button onclick="openPage('register')">Join Tournament</button>
+  </div>
+
+  <div class="banners">
+    <div class="banner" style="background-image:url('https://images.unsplash.com/photo-1542751371-adc38448a05e');">
+      <h3>Custom Rooms</h3>
+    </div>
+    <div class="banner" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420');">
+      <span class="live">LIVE</span>
+      <h3>Live Streaming</h3>
+    </div>
+    <div class="banner" style="background-image:url('https://images.unsplash.com/photo-1600861194942-f883de0dfe96');">
+      <h3>Real Rewards</h3>
+    </div>
+  </div>
+</section>
+
+<section id="profile">
+  <div class="profile-box" id="profileBox">
+    <h2>Guest Player</h2>
+    <p>Please login to continue</p>
+    <button class="btn" onclick="netlifyIdentity.open()">Login / Sign Up</button>
+  </div>
+</section>
+
+<section id="register">
+  <div class="card">
+    <h2 style="font-family:'Bebas Neue'">Tournament Registration</h2>
+    <form name="tournament-registration" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="tournament-registration">
+      <input class="input" name="player_name" placeholder="Player Name / IGN" required>
+      <input class="input" name="game_uid" placeholder="Game UID" required>
+      <input class="input" type="email" name="email" placeholder="Email" required>
+      <input class="input" name="phone" placeholder="WhatsApp Number" required>
+      <select class="input" name="game" required>
+        <option value="">Select Game</option>
+        <option>Free Fire</option>
+        <option>BGMI</option>
+        <option>COD Mobile</option>
+      </select>
+      <select class="input" name="mode" required>
+        <option value="">Select Mode</option>
+        <option>Solo</option>
+        <option>Duo</option>
+        <option>Squad</option>
+      </select>
+      <input class="input" name="team_name" placeholder="Team Name (Optional)">
+      <textarea class="input" name="team_members" placeholder="Team Members IGN"></textarea>
+      <input class="input" name="transaction_id" placeholder="Transaction ID" required>
+      <button class="btn">Submit Registration</button>
+    </form>
+  </div>
+</section>
+
+<section id="matches">
+  <h2 style="text-align:center;font-family:'Bebas Neue'">Tournament Matches</h2>
+  <div class="match-grid">
+    <div class="match"><h3>Solo Match</h3><p>12 Jan • Free Fire</p></div>
+    <div class="match"><h3>Squad Battle</h3><p>13 Jan • BGMI</p></div>
+    <div class="match"><h3>Grand Final</h3><p>15 Jan • Finals</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>© 2026 Esports Arena</footer>
+
+<script>
+function openPage(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+const text="WELCOME TO ESPORTS ARENA";
+let i=0;
+(function type(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML+=text[i++];
+    setTimeout(type,100);
+  }
+})();
+</script>
+
+</body>
+</html>
